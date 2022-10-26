@@ -1,10 +1,8 @@
 package com.rg.mapper;
 
+import com.rg.domain.Role;
 import com.rg.domain.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -44,7 +42,42 @@ public interface UserMapper {
     @Delete("delete from user where id = #{id}")
     public void delete(Integer id);
 
+    /**
+     * 根据ID查询用户信息
+     * @param uid
+     * @return
+     */
     @Select("select * from user where id = #{uid}")
     public User findById(Integer uid);
+
+    /**
+     * 查询所有用户，及关联的订单
+     * @return
+     */
+    @Select("select * from user")
+    @Results({
+            @Result(property = "id",column = "id"),
+            @Result(property = "username",column = "username"),
+            @Result(property = "birthday",column = "birthday"),
+            @Result(property = "sex",column = "sex"),
+            @Result(property = "address",column = "address"),
+            @Result(property = "orderList",javaType = List.class,column = "id",many = @Many(select = "com.rg.mapper.OrderMapper.findByUid"))
+    })
+    public List<User> findAllWithOrder();
+
+    /**
+     * 查询所有用户，及关联的角色
+     * @return
+     */
+    @Select("select * from user")
+    @Results({
+            @Result(property = "id",column = "id"),
+            @Result(property = "username",column = "username"),
+            @Result(property = "birthday",column = "birthday"),
+            @Result(property = "sex",column = "sex"),
+            @Result(property = "address",column = "address"),
+            @Result(property = "roleList",javaType = List.class,column = "id",many = @Many(select = "com.rg.mapper.RoleMapper.findAllById"))
+    })
+    public List<User> findAllWithRole();
 
 }

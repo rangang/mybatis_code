@@ -1,6 +1,7 @@
 package com.rg.test;
 
 import com.rg.domain.Order;
+import com.rg.domain.Role;
 import com.rg.domain.User;
 import com.rg.mapper.OrderMapper;
 import com.rg.mapper.UserMapper;
@@ -100,6 +101,24 @@ public class MybatisTest {
             System.out.println(order);
         }
 
+    }
+
+    @Test
+    public void testOneToMany() {
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        List<User> allWithOrder = mapper.findAllWithOrder();
+        for (User user : allWithOrder) {
+            System.out.println(user);
+        }
+    }
+
+    @Test
+    public void testManyToMany() {
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        List<User> allWithRole = mapper.findAllWithRole();
+        for (User user : allWithRole) {
+            System.out.println(user);
+        }
     }
 
 }

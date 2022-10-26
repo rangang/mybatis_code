@@ -1,6 +1,7 @@
 package com.rg.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @BelongsProject: mybatis_anno
@@ -16,6 +17,10 @@ public class User {
     private String sex;
     private String address;
 
+    private List<Order> orderList;
+
+    private List<Role> roleList;
+
     @Override
     public String toString() {
         return "User{" +
@@ -24,7 +29,25 @@ public class User {
                 ", birthday=" + birthday +
                 ", sex='" + sex + '\'' +
                 ", address='" + address + '\'' +
+                ", orderList=" + orderList +
+                ", roleList=" + roleList +
                 '}';
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 
     public Integer getId() {

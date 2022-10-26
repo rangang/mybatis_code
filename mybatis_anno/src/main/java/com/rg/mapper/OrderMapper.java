@@ -31,4 +31,12 @@ public interface OrderMapper {
     })
     public List<Order> findAllWithUser();
 
+    /**
+     * 根据用户ID查询订单
+     * @param uid
+     * @return
+     */
+    @Select("select * from orders where uid = #{uid}")
+    public List<Order> findByUid(Integer uid);
+
 }
